@@ -3,216 +3,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlumniAI — Live Demo</title>
+<title>AlumniAI — Advancement OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0D1B2A; --navy2:#0A1F30; --teal:#00C9B1; --amber:#FFC857;
-    --white:#F5F5F5; --gray:#A0A8B8; --card:#162A40; --edge:#243E5A;
-    --red:#FF6B6B; --green:#3DD68C;
+    --bg:#0A1626; --bg2:#0D1B2A; --teal:#00C9B1; --teal2:#27E6CC; --amber:#FFC857;
+    --red:#FF6B6B; --green:#42D896; --blue:#5B8DEF;
+    --text:#EAF0F8; --muted:#8A95A8; --faint:#5C6678;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.13);
+    --glass:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    --glass-h:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03));
+    --shadow:0 14px 40px rgba(0,0,0,.35);
+    --glow:0 8px 26px rgba(0,201,177,.32);
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
   body{
-    font-family:"Avenir Next",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:var(--navy); color:var(--white); height:100vh; overflow:hidden;
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--text); letter-spacing:-.01em; overflow:hidden;
+    background:
+      radial-gradient(1100px 560px at 82% -12%, rgba(0,201,177,.13), transparent 58%),
+      radial-gradient(900px 520px at -8% 112%, rgba(91,141,239,.12), transparent 55%),
+      var(--bg);
+    -webkit-font-smoothing:antialiased;
   }
-  .app{display:grid; grid-template-columns:230px 1fr; height:100vh}
+  ::selection{background:rgba(0,201,177,.3)}
+  .muted{color:var(--muted)}
+  .app{display:grid; grid-template-columns:248px 1fr; height:100vh}
 
-  /* Sidebar */
-  .side{background:var(--navy2); border-right:1px solid var(--edge); padding:22px 16px; display:flex; flex-direction:column}
-  .brand{font-size:24px; font-weight:800; letter-spacing:-.5px; margin-bottom:4px}
-  .brand b{color:var(--teal)}
-  .brand-sub{font-size:10px; color:var(--gray); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:26px}
-  .nav{display:flex; flex-direction:column; gap:4px}
-  .nav button{
-    display:flex; align-items:center; gap:11px; width:100%; text-align:left;
-    background:none; border:none; color:var(--gray); font-size:14px; font-weight:600;
-    padding:11px 12px; border-radius:9px; cursor:pointer; font-family:inherit; transition:.15s;
+  /* ── Sidebar ─────────────────────────────────────── */
+  .side{
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    border-right:1px solid var(--line); padding:20px 16px 16px; display:flex; flex-direction:column;
+    backdrop-filter:blur(8px);
   }
-  .nav button:hover{background:#13283c; color:var(--white)}
-  .nav button.active{background:rgba(0,201,177,.12); color:var(--teal)}
-  .nav .ico{width:18px; height:18px; flex:none; opacity:.9}
-  .nav-step{font-size:9px; color:var(--gray); letter-spacing:1px; text-transform:uppercase; margin:22px 0 8px 12px}
-  .side-foot{margin-top:auto; font-size:11px; color:var(--gray); line-height:1.5}
-  .side-foot .dot{color:var(--teal)}
+  .brand{display:flex; align-items:center; gap:12px; padding:4px 6px 22px}
+  .logo{width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--teal2),var(--teal)); color:#04231f; font-weight:900; font-size:19px;
+    box-shadow:0 6px 18px rgba(0,201,177,.4), inset 0 1px 0 rgba(255,255,255,.4)}
+  .brand-name{font-size:18px;font-weight:800;letter-spacing:-.02em}
+  .brand-name span{color:var(--teal)}
+  .brand-sub{font-size:10.5px;color:var(--faint);font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-top:1px}
+  .nav{display:flex;flex-direction:column;gap:3px}
+  .nav-label{font-size:10px;color:var(--faint);font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin:18px 0 7px 12px}
+  .nav button{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+    background:none;border:none;color:var(--muted);font-size:14px;font-weight:600;font-family:inherit;
+    padding:10px 12px;border-radius:11px;cursor:pointer;transition:.18s}
+  .nav button svg{width:18px;height:18px;flex:none;opacity:.85;transition:.18s}
+  .nav button:hover{background:rgba(255,255,255,.04);color:var(--text)}
+  .nav button.active{background:linear-gradient(90deg,rgba(0,201,177,.18),rgba(0,201,177,.03));color:var(--text)}
+  .nav button.active svg{opacity:1;color:var(--teal)}
+  .nav button.active::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:3px;
+    background:linear-gradient(180deg,var(--teal2),var(--teal));box-shadow:0 0 12px rgba(0,201,177,.7)}
+  .side-user{margin-top:auto;display:flex;align-items:center;gap:11px;padding:11px;border-radius:13px;
+    background:var(--glass);border:1px solid var(--line);cursor:pointer;transition:.18s}
+  .side-user:hover{background:var(--glass-h)}
+  .ws{width:34px;height:34px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:800;color:#04231f;background:linear-gradient(135deg,#9be8dd,var(--teal))}
+  .side-user .nm{font-size:13px;font-weight:700}
+  .side-user .pl{font-size:11px;color:var(--faint)}
 
-  /* Topbar */
-  .main{display:flex; flex-direction:column; min-width:0}
-  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 26px; border-bottom:1px solid var(--edge)}
-  .top h1{font-size:19px; font-weight:700}
-  .top .sub{font-size:12px; color:var(--gray); margin-top:2px}
-  .top-title{flex:1; min-width:0}
-  .menu-btn{display:none; background:none; border:1px solid var(--edge); color:var(--teal);
-            font-size:18px; width:40px; height:40px; border-radius:10px; cursor:pointer; flex:none;
-            align-items:center; justify-content:center; font-family:inherit}
-  .nav-overlay{display:none}
-  .live{display:flex; align-items:center; gap:8px; background:var(--navy2); border:1px solid var(--edge); padding:7px 13px; border-radius:30px; font-size:12px; color:var(--teal); font-weight:600}
-  .pulse{width:8px; height:8px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 0 rgba(0,201,177,.6); animation:pulse 1.8s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,201,177,.55)}70%{box-shadow:0 0 0 9px rgba(0,201,177,0)}100%{box-shadow:0 0 0 0 rgba(0,201,177,0)}}
+  /* ── Main / topbar ───────────────────────────────── */
+  .main{display:flex;flex-direction:column;min-width:0}
+  .top{display:flex;align-items:center;gap:14px;padding:15px 26px;border-bottom:1px solid var(--line);
+    background:rgba(10,22,38,.5);backdrop-filter:blur(10px)}
+  .menu-btn{display:none}
+  .top-title{min-width:0;margin-right:auto}
+  .top h1{font-size:19px;font-weight:800;letter-spacing:-.02em}
+  .top .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .search{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--line);
+    border-radius:11px;padding:8px 13px;width:240px;transition:.18s}
+  .search:focus-within{border-color:rgba(0,201,177,.5);box-shadow:0 0 0 3px rgba(0,201,177,.12)}
+  .search svg{width:15px;height:15px;color:var(--faint);flex:none}
+  .search input{background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:13px;width:100%}
+  .search input::placeholder{color:var(--faint)}
+  .icon-btn{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);
+    background:var(--glass);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s}
+  .icon-btn:hover{color:var(--text);background:var(--glass-h)}
+  .icon-btn svg{width:17px;height:17px}
+  .icon-btn .dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--teal);
+    box-shadow:0 0 0 2px var(--bg2),0 0 8px var(--teal)}
+  .live{display:flex;align-items:center;gap:8px;background:rgba(0,201,177,.1);border:1px solid rgba(0,201,177,.28);
+    padding:8px 14px;border-radius:30px;font-size:12.5px;color:var(--teal);font-weight:700}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(0,201,177,.6);animation:pulse 1.9s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,201,177,.5)}70%{box-shadow:0 0 0 9px rgba(0,201,177,0)}100%{box-shadow:0 0 0 0 rgba(0,201,177,0)}}
+  .uava{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;color:#04231f;background:linear-gradient(135deg,#ffd98a,var(--amber));
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.18)}
 
-  .scroll{overflow-y:auto; padding:24px 26px; flex:1}
-  .view{display:none; animation:fade .25s ease}
+  .scroll{overflow-y:auto;padding:24px 26px 34px;flex:1}
+  .scroll::-webkit-scrollbar{width:9px}
+  .scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:9px;border:2px solid transparent;background-clip:content-box}
+  .view{display:none;animation:fade .3s cubic-bezier(.2,.7,.3,1)}
   .view.show{display:block}
-  @keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+  @keyframes fade{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 
-  /* Cards */
-  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px}
-  .kpi{background:var(--card); border:1px solid var(--edge); border-radius:13px; padding:16px 18px}
-  .kpi .n{font-size:30px; font-weight:800; letter-spacing:-1px}
-  .kpi .n.teal{color:var(--teal)}
-  .kpi .l{font-size:11px; color:var(--gray); margin-top:3px; text-transform:uppercase; letter-spacing:.5px}
-  .kpi .d{font-size:11px; color:var(--green); margin-top:7px; font-weight:600}
+  /* ── Cards / KPIs ────────────────────────────────── */
+  .card,.panel{background:var(--glass);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+  .panel{padding:20px}
+  .panel-h{display:flex;align-items:center;gap:9px;font-size:11px;text-transform:uppercase;letter-spacing:.11em;
+    color:var(--teal);font-weight:700;margin-bottom:16px}
+  .panel-h .live-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
 
-  .row{display:grid; grid-template-columns:1.15fr .85fr; gap:18px}
-  .panel{background:var(--card); border:1px solid var(--edge); border-radius:14px; padding:18px}
-  .panel h3{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--teal); margin-bottom:14px; display:flex; align-items:center; gap:8px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:18px}
+  .kpi{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line);
+    background:var(--glass);padding:17px 18px;transition:.2s}
+  .kpi:hover{transform:translateY(-2px);border-color:var(--line2);box-shadow:var(--shadow)}
+  .kpi .lab{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  .kpi .num{font-size:29px;font-weight:800;letter-spacing:-.03em;margin-top:7px;
+    background:linear-gradient(180deg,#fff,#bcc8d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .kpi .num.teal{background:linear-gradient(180deg,var(--teal2),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .kpi .trend{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--green);margin-top:6px}
+  .kpi .spark{position:absolute;right:14px;bottom:14px;width:62px;height:30px;opacity:.9}
 
-  /* Live agent feed */
-  .feed{display:flex; flex-direction:column; gap:0}
-  .ev{display:flex; gap:12px; padding:11px 4px; border-bottom:1px solid rgba(36,62,90,.5); font-size:13px; align-items:flex-start}
-  .ev:last-child{border-bottom:none}
-  .ev .tdot{width:8px; height:8px; border-radius:50%; margin-top:5px; flex:none; background:var(--teal)}
-  .ev .tdot.amber{background:var(--amber)} .ev .tdot.gray{background:var(--gray)}
-  .ev .body{flex:1; min-width:0}
-  .ev .who{font-weight:700}
-  .ev .what{color:var(--gray); font-size:12px; margin-top:1px}
-  .ev .diff{font-size:12px; margin-top:4px}
-  .ev .old{color:var(--red); text-decoration:line-through; opacity:.8}
-  .ev .new{color:var(--green); font-weight:600}
-  .ev .time{font-size:11px; color:var(--gray); white-space:nowrap}
-  .ev.fresh{background:rgba(0,201,177,.07)}
+  .row{display:grid;grid-template-columns:1.18fr .82fr;gap:18px}
 
-  /* Signal cards */
-  .sig{border:1px solid var(--edge); border-radius:12px; padding:14px; margin-bottom:12px; cursor:pointer; transition:.15s; background:var(--navy2)}
-  .sig:hover{border-color:var(--teal); transform:translateX(3px)}
-  .sig.hot{border-color:var(--teal)}
-  .sig .tag{font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--teal)}
-  .sig .name{font-size:15px; font-weight:700; margin:5px 0 2px}
-  .sig .meta{font-size:12px; color:var(--gray)}
-  .sig .cap{font-size:12px; color:var(--amber); margin-top:6px}
-  .chip{display:inline-block; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; letter-spacing:.4px}
-  .chip.hi{background:rgba(255,107,107,.16); color:var(--red)}
-  .chip.med{background:rgba(255,200,87,.16); color:var(--amber)}
+  /* feed */
+  .feed{display:flex;flex-direction:column}
+  .ev{display:flex;gap:13px;padding:12px 8px;border-radius:12px;align-items:center;transition:.18s}
+  .ev:hover{background:rgba(255,255,255,.03)}
+  .ev.fresh{background:linear-gradient(90deg,rgba(0,201,177,.1),transparent);animation:slidein .5s ease}
+  @keyframes slidein{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+  .av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;color:#fff;position:relative}
+  .av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;
+    border:2.5px solid var(--bg2);background:var(--teal)}
+  .av.amber::after{background:var(--amber)} .av.blue::after{background:var(--blue)} .av.gray::after{background:var(--faint)}
+  .ev .bd{flex:1;min-width:0}
+  .ev .who{font-weight:700;font-size:14px}
+  .ev .what{color:var(--muted);font-size:12.5px;margin-top:1px}
+  .ev .diff{font-size:12px;margin-top:3px}
+  .ev .old{color:var(--faint);text-decoration:line-through}
+  .ev .new{color:var(--green);font-weight:600}
+  .ev .tm{font-size:11px;color:var(--faint);white-space:nowrap;font-weight:600}
 
-  /* Table */
-  table{width:100%; border-collapse:collapse; font-size:13px}
-  th{text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:var(--gray); padding:9px 10px; border-bottom:1px solid var(--edge)}
-  td{padding:12px 10px; border-bottom:1px solid rgba(36,62,90,.5)}
-  tr.upd{background:rgba(61,214,140,.06)}
-  .badge{font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px}
-  .badge.auto{background:rgba(0,201,177,.15); color:var(--teal)}
-  .badge.stale{background:rgba(160,168,184,.14); color:var(--gray)}
-  .mini-old{color:var(--gray); text-decoration:line-through; font-size:11px}
-  .mini-new{color:var(--green); font-weight:600}
+  /* signal cards */
+  .sig{position:relative;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px;cursor:pointer;
+    background:var(--glass);transition:.18s;overflow:hidden}
+  .sig:hover{transform:translateY(-2px);border-color:rgba(0,201,177,.4);box-shadow:var(--shadow)}
+  .sig.hot{border-color:rgba(0,201,177,.45)}
+  .sig.hot::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,var(--teal2),var(--teal))}
+  .sig-top{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+  .sig .name{font-size:15px;font-weight:700}
+  .sig .meta{font-size:12.5px;color:var(--muted)}
+  .sig .cap{font-size:12px;color:var(--amber);margin-top:8px;font-weight:600}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
+  .chip.hi{background:rgba(255,107,107,.16);color:var(--red)}
+  .chip.med{background:rgba(255,200,87,.16);color:var(--amber)}
+  .chip.teal{background:rgba(0,201,177,.16);color:var(--teal)}
+  .chip .d{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pill-btn{display:inline-flex;align-items:center;gap:7px;margin-top:13px;border:none;cursor:pointer;font-family:inherit;
+    font-size:12.5px;font-weight:700;padding:9px 15px;border-radius:10px;color:#04231f;
+    background:linear-gradient(135deg,var(--teal2),var(--teal));box-shadow:var(--glow);transition:.18s}
+  .pill-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
 
-  /* Two-column signals (officer + student) */
-  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-  .stud{display:flex; gap:11px; padding:12px 4px; border-bottom:1px solid rgba(36,62,90,.5); font-size:13px}
+  /* table */
+  .t-wrap{overflow:hidden;border-radius:12px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);
+    font-weight:700;padding:12px 14px;background:rgba(255,255,255,.02)}
+  td{padding:13px 14px;border-top:1px solid var(--line)}
+  tr.upd{background:linear-gradient(90deg,rgba(66,216,150,.07),transparent)}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;padding:4px 9px;border-radius:7px;text-transform:uppercase;letter-spacing:.03em}
+  .badge.auto{background:rgba(0,201,177,.15);color:var(--teal)}
+  .badge.self{background:rgba(138,149,168,.14);color:var(--muted)}
+  .mini-old{color:var(--faint);text-decoration:line-through;font-size:11.5px}
+  .mini-new{color:var(--green);font-weight:600}
+  .nm-sub{color:var(--faint);font-size:11px;font-weight:500}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .stud{display:flex;gap:12px;padding:13px 6px;border-bottom:1px solid var(--line);font-size:13.5px;align-items:center}
   .stud:last-child{border:none}
-  .av{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:#22405A;color:#fff}
-  .stud .act{font-size:11px; color:var(--teal); font-weight:600; margin-top:3px}
+  .stud .act{font-size:11.5px;color:var(--teal);font-weight:600;margin-top:3px}
 
-  /* Outreach / email */
-  .out{display:grid; grid-template-columns:.95fr 1.05fr; gap:18px}
-  .moment{display:flex; align-items:center; gap:10px; background:rgba(0,201,177,.08); border:1px solid var(--teal); border-radius:10px; padding:11px 14px; font-size:13px; margin-bottom:16px}
+  /* outreach / email */
+  .out{display:grid;grid-template-columns:.92fr 1.08fr;gap:18px}
+  .moment{display:flex;align-items:center;gap:11px;background:linear-gradient(90deg,rgba(0,201,177,.13),rgba(0,201,177,.03));
+    border:1px solid rgba(0,201,177,.32);border-radius:13px;padding:13px 16px;font-size:13.5px;margin-bottom:18px}
+  .moment .ic{font-size:17px}
   .moment b{color:var(--teal)}
-  .field{font-size:13px; padding:9px 0; border-bottom:1px solid rgba(36,62,90,.5); display:flex; gap:10px}
-  .field .k{color:var(--gray); width:64px; flex:none}
-  .email{font-size:13.5px; line-height:1.7; margin-top:14px; color:#dfe5ee; white-space:pre-wrap}
-  .why{background:var(--navy2); border-left:3px solid var(--teal); border-radius:6px; padding:11px 14px; font-size:12.5px; font-style:italic; color:var(--teal); margin-top:16px; line-height:1.5}
-  .btns{display:flex; gap:10px; margin-top:18px}
-  .btn{font-family:inherit; font-size:13px; font-weight:700; padding:11px 20px; border-radius:9px; cursor:pointer; border:1px solid transparent; transition:.15s}
-  .btn.primary{background:var(--teal); color:var(--navy)}
-  .btn.primary:hover{filter:brightness(1.08)}
-  .btn.ghost{background:transparent; border-color:var(--edge); color:var(--white)}
-  .btn.ghost:hover{border-color:var(--gray)}
-  .btn:disabled{opacity:.5; cursor:default}
+  .field{font-size:13.5px;padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:10px}
+  .field .k{color:var(--faint);width:64px;flex:none;font-weight:600}
+  .email{font-size:14px;line-height:1.75;margin-top:15px;color:#d7deea;white-space:pre-wrap}
+  .why{background:rgba(0,201,177,.06);border:1px solid rgba(0,201,177,.22);border-left:3px solid var(--teal);
+    border-radius:11px;padding:13px 15px;font-size:13px;color:var(--teal);margin-top:16px;line-height:1.55}
+  .btns{display:flex;gap:11px;margin-top:20px}
+  .btn{font-family:inherit;font-size:13.5px;font-weight:700;padding:12px 22px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.18s}
+  .btn.primary{color:#04231f;background:linear-gradient(135deg,var(--teal2),var(--teal));box-shadow:var(--glow)}
+  .btn.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .btn.ghost{background:var(--glass);border-color:var(--line2);color:var(--text)}
+  .btn.ghost:hover{background:var(--glass-h)}
 
-  .sent{display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:50px 20px}
-  .sent.show{display:flex}
-  .sent .ring{width:74px;height:74px;border-radius:50%;background:rgba(0,201,177,.14);display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--teal);margin-bottom:16px}
-  .sent h2{font-size:20px; margin-bottom:6px}
-  .sent p{color:var(--gray); font-size:13px; max-width:340px; line-height:1.6}
-  .logline{font-size:12px; color:var(--teal); margin-top:14px}
+  .sent{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:54px 20px}
+  .sent.show{display:flex;animation:fade .4s ease}
+  .sent .ring{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#04231f;
+    background:linear-gradient(135deg,var(--teal2),var(--teal));box-shadow:0 14px 40px rgba(0,201,177,.45);margin-bottom:18px}
+  .sent h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:7px}
+  .sent p{color:var(--muted);font-size:13.5px;max-width:360px;line-height:1.6}
+  .logline{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--teal);margin-top:16px;
+    background:rgba(0,201,177,.1);border:1px solid rgba(0,201,177,.25);padding:8px 14px;border-radius:30px}
 
-  .hint{font-size:12px; color:var(--gray); margin-top:18px; text-align:center; font-style:italic}
-  .empty{color:var(--gray); font-size:13px; padding:18px; text-align:center}
+  .hint{font-size:12.5px;color:var(--faint);margin-top:16px;text-align:center}
+  .pipe-num{font-size:24px;font-weight:800;letter-spacing:-.02em;
+    background:linear-gradient(180deg,var(--teal2),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* ── Mobile / phone ───────────────────────────────────────── */
-  @media (max-width: 760px){
-    body{height:auto; overflow-y:auto; overflow-x:hidden; -webkit-text-size-adjust:100%;}
-    .app{display:block; height:auto;}
-    .main{height:auto;}
-
-    /* hamburger shows */
-    .menu-btn{display:flex;}
-
-    /* sidebar becomes an off-canvas drawer, hidden by default */
-    .side{position:fixed; top:0; left:0; bottom:0; width:255px; max-width:82vw;
-          transform:translateX(-100%); transition:transform .26s ease; z-index:60;
-          border-right:1px solid var(--edge); box-shadow:14px 0 40px rgba(0,0,0,.55);}
-    body.nav-open .side{transform:translateX(0);}
-    .nav-overlay{display:block; position:fixed; inset:0; background:rgba(0,0,0,.55);
-          opacity:0; visibility:hidden; transition:opacity .26s ease, visibility .26s ease; z-index:55;}
-    body.nav-open .nav-overlay{opacity:1; visibility:visible;}
-    body.nav-open{overflow:hidden;}
-
-    .top{padding:13px 16px;}
-    .top h1{font-size:17px;}
-    .top .sub{font-size:11px;}
-    .live{font-size:10px; padding:6px 10px;}
-
-    .scroll{overflow:visible; padding:16px 14px 40px;}
-
-    /* Stack grids */
-    .grid4{grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;}
-    .kpi{padding:13px 14px;}
-    .kpi .n{font-size:23px;}
-    .row, .two, .out{grid-template-columns:1fr; gap:14px;}
-    .panel{padding:15px;}
-
-    /* Table scrolls horizontally inside its panel */
-    #db .panel{overflow-x:auto; -webkit-overflow-scrolling:touch;}
-    #db table{min-width:540px;}
-
-    /* Touch tidy-ups */
-    .sig:hover{transform:none;}
-    .moment{flex-wrap:wrap;}
-    .btns{flex-wrap:wrap;}
-    .btn{flex:1 1 auto; text-align:center;}
-    .hint{display:none;}
-    .sent{padding:36px 16px;}
+  /* ── Mobile ──────────────────────────────────────── */
+  @media (max-width:820px){
+    body{overflow-y:auto;overflow-x:hidden}
+    .app{display:block;height:auto}
+    .menu-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;
+      border:1px solid var(--line);background:var(--glass);color:var(--teal);font-size:18px;cursor:pointer;flex:none}
+    .side{position:fixed;inset:0 auto 0 0;width:262px;max-width:84vw;transform:translateX(-100%);
+      transition:transform .26s ease;z-index:60;box-shadow:18px 0 50px rgba(0,0,0,.55)}
+    body.nav-open .side{transform:none}
+    .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:.26s;z-index:55}
+    body.nav-open .nav-overlay{opacity:1;visibility:visible}
+    body.nav-open{overflow:hidden}
+    .top{padding:13px 16px;position:sticky;top:0;z-index:20}
+    .search,.icon-btn,.live{display:none}
+    .scroll{padding:16px 14px 40px}
+    .grid4{grid-template-columns:1fr 1fr;gap:11px}
+    .row,.two,.out{grid-template-columns:1fr;gap:14px}
+    .t-wrap{overflow-x:auto} table{min-width:560px}
   }
+  .nav-overlay{display:none}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="nav-overlay" onclick="closeNav()"></div>
+
   <!-- Sidebar -->
   <aside class="side">
-    <div class="brand">Alumni<b>AI</b></div>
-    <div class="brand-sub">Advancement OS</div>
+    <div class="brand">
+      <div class="logo">A</div>
+      <div>
+        <div class="brand-name">Alumni<span>AI</span></div>
+        <div class="brand-sub">Advancement OS</div>
+      </div>
+    </div>
     <nav class="nav">
-      <div class="nav-step">The platform</div>
-      <button data-view="dash" class="active"><span class="ico">▦</span> Dashboard</button>
-      <div class="nav-step">1 · Always on</div>
-      <button data-view="db"><span class="ico">⟳</span> Database Agent</button>
-      <div class="nav-step">2 · Engage</div>
-      <button data-view="sig"><span class="ico">◉</span> Life Signals</button>
-      <div class="nav-step">3 · Convert</div>
-      <button data-view="out"><span class="ico">✉</span> Donation Outreach</button>
+      <div class="nav-label">Platform</div>
+      <button data-view="dash" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Dashboard</button>
+      <div class="nav-label">Pipeline</div>
+      <button data-view="db">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 4v5h-5"/></svg>
+        Database Agent</button>
+      <button data-view="sig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2.2"/><path d="M7 7a7 7 0 0 0 0 10M17 7a7 7 0 0 1 0 10M4 4a11 11 0 0 0 0 16M20 4a11 11 0 0 1 0 16"/></svg>
+        Life Signals</button>
+      <button data-view="out">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        Donation Outreach</button>
     </nav>
-    <div class="side-foot"><span class="dot">●</span> Agents online<br>Scanning 12,480 alumni</div>
+    <div class="side-user">
+      <div class="ws">IA</div>
+      <div><div class="nm">INSEAD</div><div class="pl">Advancement · Pro</div></div>
+    </div>
   </aside>
 
   <!-- Main -->
   <div class="main">
     <header class="top">
-      <button class="menu-btn" onclick="toggleNav()" aria-label="Menu">☰</button>
+      <button class="menu-btn" onclick="toggleNav()">☰</button>
       <div class="top-title">
         <h1 id="vTitle">Dashboard</h1>
         <div class="sub" id="vSub">Live view of your alumni base</div>
       </div>
-      <div class="live"><span class="pulse"></span> Live · scanning the public web</div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <input placeholder="Search alumni, signals…">
+      </div>
+      <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot"></span></button>
+      <div class="live"><span class="pulse"></span> Live · scanning the web</div>
+      <div class="uava">SK</div>
     </header>
 
     <div class="scroll">
@@ -220,27 +288,34 @@
       <!-- DASHBOARD -->
       <section class="view show" id="dash">
         <div class="grid4">
-          <div class="kpi"><div class="n">12,480</div><div class="l">Alumni monitored</div><div class="d">24/7 automatic</div></div>
-          <div class="kpi"><div class="n teal" id="kUpd">327</div><div class="l">Records updated · wk</div><div class="d">▲ no manual work</div></div>
-          <div class="kpi"><div class="n">18</div><div class="l">High-value signals</div><div class="d">▲ 6 new today</div></div>
-          <div class="kpi"><div class="n">€1.4M</div><div class="l">Giving pipeline opened</div><div class="d">▲ this quarter</div></div>
+          <div class="kpi"><div class="lab">Alumni monitored</div><div class="num">12,480</div><div class="trend muted" style="color:var(--faint)">24/7 automatic</div>
+            <svg class="spark" viewBox="0 0 62 30"><polyline points="0,22 12,18 24,20 36,12 48,14 62,6" fill="none" stroke="#5B8DEF" stroke-width="2"/></svg></div>
+          <div class="kpi"><div class="lab">Records updated · wk</div><div class="num teal" id="kUpd">327</div><div class="trend">▲ no manual work</div>
+            <svg class="spark" viewBox="0 0 62 30"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00C9B1" stop-opacity=".5"/><stop offset="1" stop-color="#00C9B1" stop-opacity="0"/></linearGradient></defs><polyline points="0,24 12,20 24,22 36,12 48,15 62,5" fill="none" stroke="#27E6CC" stroke-width="2"/><polygon points="0,24 12,20 24,22 36,12 48,15 62,5 62,30 0,30" fill="url(#g1)"/></svg></div>
+          <div class="kpi"><div class="lab">High-value signals</div><div class="num">18</div><div class="trend">▲ 6 new today</div>
+            <svg class="spark" viewBox="0 0 62 30"><polyline points="0,20 12,22 24,14 36,16 48,8 62,10" fill="none" stroke="#FFC857" stroke-width="2"/></svg></div>
+          <div class="kpi"><div class="lab">Giving pipeline</div><div class="num">€1.4M</div><div class="trend">▲ this quarter</div>
+            <svg class="spark" viewBox="0 0 62 30"><polyline points="0,26 12,22 24,18 36,14 48,9 62,4" fill="none" stroke="#42D896" stroke-width="2"/></svg></div>
         </div>
         <div class="row">
           <div class="panel">
-            <h3><span class="pulse"></span> Continuous Database Update Agent</h3>
+            <div class="panel-h"><span class="live-dot"></span> Continuous Database Update Agent</div>
             <div class="feed" id="liveFeed"></div>
           </div>
           <div class="panel">
-            <h3>Top signals → ready to act</h3>
+            <div class="panel-h">Priority signals → ready to act</div>
             <div class="sig hot" onclick="openSig()">
-              <span class="chip hi">HIGH PRIORITY</span>
-              <div class="name">Sarah Chen · MBA ’19</div>
-              <div class="meta">Appointed Head of Investment, Bridgewater</div>
+              <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
+                <div style="flex:1"><div class="name">Sarah Chen</div><div class="meta">MBA ’19 · Bridgewater</div></div>
+                <span class="chip hi"><span class="d"></span>High</span></div>
+              <div class="meta">Appointed Head of Investment, Bridgewater Associates</div>
               <div class="cap">Giving capacity ● ● ● ● ○</div>
+              <button class="pill-btn">Generate outreach →</button>
             </div>
             <div class="sig" onclick="go('sig')">
-              <span class="chip med">MEDIUM</span>
-              <div class="name">Marcus Webb · EMBA ’11</div>
+              <div class="sig-top"><div class="av amber" style="background:linear-gradient(135deg,#FF9A6B,#FF6B6B)">MW</div>
+                <div style="flex:1"><div class="name">Marcus Webb</div><div class="meta">EMBA ’11 · Siemens</div></div>
+                <span class="chip med"><span class="d"></span>Medium</span></div>
               <div class="meta">Company acquired: Nexa Robotics → Siemens</div>
             </div>
             <div class="hint">Click Sarah Chen to walk the full loop →</div>
@@ -251,35 +326,22 @@
       <!-- DATABASE AGENT -->
       <section class="view" id="db">
         <div class="panel">
-          <h3><span class="pulse"></span> Records kept current automatically — no manual entry, no stale data</h3>
-          <table>
+          <div class="panel-h"><span class="live-dot"></span> Records kept current automatically — no manual entry, no stale data</div>
+          <div class="t-wrap"><table>
             <thead><tr><th>Alum</th><th>Role (live)</th><th>Source</th><th>Last update</th><th>Mode</th></tr></thead>
             <tbody>
-              <tr class="upd">
-                <td><b>Sarah Chen</b><br><span style="color:var(--gray);font-size:11px">MBA ’19</span></td>
+              <tr class="upd"><td><b>Sarah Chen</b><br><span class="nm-sub">MBA ’19</span></td>
                 <td><span class="mini-old">Associate, Bridgewater</span><br><span class="mini-new">Head of Investment, Bridgewater</span></td>
-                <td>LinkedIn</td><td>2 hours ago</td><td><span class="badge auto">AUTO ⟳</span></td>
-              </tr>
-              <tr class="upd">
-                <td><b>Marcus Webb</b><br><span style="color:var(--gray);font-size:11px">EMBA ’11</span></td>
+                <td>LinkedIn</td><td>2 hours ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr class="upd"><td><b>Marcus Webb</b><br><span class="nm-sub">EMBA ’11</span></td>
                 <td><span class="mini-old">CEO, Nexa Robotics</span><br><span class="mini-new">VP Engineering, Siemens</span></td>
-                <td>TechCrunch</td><td>Yesterday</td><td><span class="badge auto">AUTO ⟳</span></td>
-              </tr>
-              <tr>
-                <td><b>Priya Nair</b><br><span style="color:var(--gray);font-size:11px">MBA ’15</span></td>
-                <td>Partner, Sequoia</td><td>Press release</td><td>3 days ago</td><td><span class="badge auto">AUTO ⟳</span></td>
-              </tr>
-              <tr>
-                <td><b>Tom Becker</b><br><span style="color:var(--gray);font-size:11px">MBA ’08</span></td>
-                <td>CFO, Klarna</td><td>Filing</td><td>5 days ago</td><td><span class="badge auto">AUTO ⟳</span></td>
-              </tr>
-              <tr>
-                <td><b>Lena Vogt</b><br><span style="color:var(--gray);font-size:11px">EMBA ’17</span></td>
-                <td>Founder, stealth</td><td>LinkedIn</td><td>1 week ago</td><td><span class="badge stale">SELF-REPORTED</span></td>
-              </tr>
+                <td>TechCrunch</td><td>Yesterday</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Priya Nair</b><br><span class="nm-sub">MBA ’15</span></td><td>Partner, Sequoia</td><td>Press release</td><td>3 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Tom Becker</b><br><span class="nm-sub">MBA ’08</span></td><td>CFO, Klarna</td><td>Filing</td><td>5 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Lena Vogt</b><br><span class="nm-sub">EMBA ’17</span></td><td>Founder, stealth</td><td>LinkedIn</td><td>1 week ago</td><td><span class="badge self">Self-reported</span></td></tr>
             </tbody>
-          </table>
-          <div class="hint">The agent diffs each record against the public web. When it changes, the database changes — instantly.</div>
+          </table></div>
+          <div class="hint">The agent diffs every record against the public web. When it changes, the database changes — instantly.</div>
         </div>
       </section>
 
@@ -287,29 +349,29 @@
       <section class="view" id="sig">
         <div class="two">
           <div class="panel">
-            <h3>Alumni officer feed</h3>
+            <div class="panel-h">Alumni officer feed</div>
             <div class="sig hot" onclick="openSig()">
-              <span class="chip hi">HIGH PRIORITY</span>
-              <div class="name">Sarah Chen · MBA ’19</div>
-              <div class="meta">Promotion · Head of Investment, Bridgewater</div>
+              <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
+                <div style="flex:1"><div class="name">Sarah Chen · MBA ’19</div><div class="meta">Promotion · Head of Investment, Bridgewater</div></div>
+                <span class="chip hi"><span class="d"></span>High</span></div>
               <div class="cap">Giving capacity ● ● ● ● ○ · best moment to reach out</div>
             </div>
             <div class="sig" onclick="openSig()">
-              <span class="chip med">FUNDING</span>
-              <div class="name">Priya Nair · MBA ’15</div>
-              <div class="meta">Made Partner at Sequoia</div>
+              <div class="sig-top"><div class="av blue" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div>
+                <div style="flex:1"><div class="name">Priya Nair · MBA ’15</div><div class="meta">Made Partner at Sequoia</div></div>
+                <span class="chip med"><span class="d"></span>Funding</span></div>
             </div>
             <div class="sig" onclick="openSig()">
-              <span class="chip med">AWARD</span>
-              <div class="name">Tom Becker · MBA ’08</div>
-              <div class="meta">Named CFO of the Year</div>
+              <div class="sig-top"><div class="av amber" style="background:linear-gradient(135deg,#FFD98A,#FFC857)">TB</div>
+                <div style="flex:1"><div class="name">Tom Becker · MBA ’08</div><div class="meta">Named CFO of the Year</div></div>
+                <span class="chip teal"><span class="d"></span>Award</span></div>
             </div>
           </div>
           <div class="panel">
-            <h3>Student network feed — drives engagement</h3>
-            <div class="stud"><div class="av">SC</div><div><b>Sarah Chen</b> (’19) is now Head of Investment at Bridgewater.<div class="act">→ Congratulate · Request mentorship</div></div></div>
-            <div class="stud"><div class="av">PN</div><div><b>Priya Nair</b> (’15) made Partner at Sequoia.<div class="act">→ Ask about VC careers</div></div></div>
-            <div class="stud"><div class="av">TB</div><div><b>Tom Becker</b> (’08) named CFO of the Year.<div class="act">→ Invite to guest lecture</div></div></div>
+            <div class="panel-h">Student network feed — drives engagement</div>
+            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div><div><b>Sarah Chen</b> (’19) is now Head of Investment at Bridgewater.<div class="act">→ Congratulate · Request mentorship</div></div></div>
+            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div><div><b>Priya Nair</b> (’15) made Partner at Sequoia.<div class="act">→ Ask about VC careers</div></div></div>
+            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#FFD98A,#FFC857)">TB</div><div><b>Tom Becker</b> (’08) named CFO of the Year.<div class="act">→ Invite to guest lecture</div></div></div>
             <div class="hint">Same signals, reframed for students — turning alumni wins into live engagement.</div>
           </div>
         </div>
@@ -318,20 +380,20 @@
       <!-- DONATION OUTREACH -->
       <section class="view" id="out">
         <div id="outBody">
-          <div class="moment">⏱ <b>Optimal moment detected:</b>&nbsp; senior appointments open a <b>60–90 day window</b> of peak receptivity for institutional giving.</div>
+          <div class="moment"><span class="ic">⏱</span><div><b>Optimal moment detected:</b> senior appointments open a <b>60–90 day window</b> of peak receptivity for institutional giving.</div></div>
           <div class="out">
             <div class="panel">
-              <h3>The opportunity</h3>
+              <div class="panel-h">The opportunity</div>
               <div class="sig hot" style="cursor:default">
-                <span class="chip hi">HIGH PRIORITY</span>
-                <div class="name">Sarah Chen · MBA ’19</div>
-                <div class="meta">Head of Investment, Bridgewater Associates</div>
+                <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
+                  <div style="flex:1"><div class="name">Sarah Chen · MBA ’19</div><div class="meta">Head of Investment, Bridgewater</div></div>
+                  <span class="chip hi"><span class="d"></span>High</span></div>
                 <div class="cap">Giving capacity ● ● ● ● ○</div>
               </div>
-              <div class="why">Why now: she was just appointed (2h ago), giving capacity is high, and the 60–90 day post-appointment window is the single best time to ask.</div>
+              <div class="why"><b>Why now:</b> appointed 2h ago, giving capacity is high, and the 60–90 day post-appointment window is the single best time to ask.</div>
             </div>
             <div class="panel">
-              <h3>AI-drafted outreach — ready to send</h3>
+              <div class="panel-h">AI-drafted outreach — ready to send</div>
               <div class="field"><span class="k">To</span><span>sarah.chen@bridgewater.com</span></div>
               <div class="field"><span class="k">Subject</span><span>Congratulations on your new role, Sarah</span></div>
               <div class="email">Dear Sarah,
@@ -341,7 +403,7 @@ Congratulations on your appointment as Head of Investment at Bridgewater — a r
 We’d love to reconnect and share how alumni like you are shaping the next generation of students…</div>
               <div class="btns">
                 <button class="btn primary" onclick="sendIt()">✓ Approve &amp; Send</button>
-                <button class="btn ghost">Edit</button>
+                <button class="btn ghost">Edit draft</button>
               </div>
             </div>
           </div>
@@ -350,7 +412,7 @@ We’d love to reconnect and share how alumni like you are shaping the next gene
           <div class="ring">✓</div>
           <h2>Sent at the perfect moment.</h2>
           <p>Personalized outreach delivered to Sarah Chen while the window is open — research and writing done by AI, approved by your officer in one click.</p>
-          <div class="logline">● Logged to CRM · timing rationale attached · follow-up scheduled</div>
+          <div class="logline"><span class="pulse"></span> Logged to CRM · rationale attached · follow-up scheduled</div>
           <div class="btns"><button class="btn ghost" onclick="resetOut()">↺ Run another</button></div>
         </div>
       </section>
@@ -379,40 +441,32 @@ We’d love to reconnect and share how alumni like you are shaping the next gene
   function openSig(){ go('out'); }
   function toggleNav(){ document.body.classList.toggle('nav-open'); }
   function closeNav(){ document.body.classList.remove('nav-open'); }
+  function sendIt(){ document.getElementById('outBody').style.display='none'; document.getElementById('sentBox').classList.add('show'); }
+  function resetOut(){ document.getElementById('sentBox').classList.remove('show'); document.getElementById('outBody').style.display='block'; }
 
-  function sendIt(){
-    document.getElementById('outBody').style.display='none';
-    document.getElementById('sentBox').classList.add('show');
-  }
-  function resetOut(){
-    document.getElementById('sentBox').classList.remove('show');
-    document.getElementById('outBody').style.display='block';
-  }
-
-  // Live agent feed simulation
-  const pool = [
-    {who:"Sarah Chen", what:"Title change detected · LinkedIn", t:"tdot", diff:["Associate","Head of Investment"], time:"2h"},
-    {who:"Marcus Webb", what:"Company acquired · TechCrunch", t:"amber", diff:["CEO, Nexa","VP Eng, Siemens"], time:"1d"},
-    {who:"Priya Nair", what:"Promotion · press release", t:"tdot", diff:["Principal","Partner, Sequoia"], time:"3d"},
-    {who:"David Osei", what:"New board seat · filing", t:"gray", diff:null, time:"4d"},
-    {who:"Tom Becker", what:"Award · CFO of the Year", t:"amber", diff:null, time:"5d"},
-    {who:"Lena Vogt", what:"Started new company · LinkedIn", t:"tdot", diff:["VP Product","Founder"], time:"6d"},
-    {who:"Anita Rao", what:"Funding round · Crunchbase", t:"tdot", diff:null, time:"1w"},
+  // live agent feed
+  const grad={SC:'#7C5CFF,#5B8DEF',MW:'#FF9A6B,#FF6B6B',PN:'#42D896,#1FAE78',DO:'#5B8DEF,#3A6FD8',TB:'#FFD98A,#FFC857',LV:'#27E6CC,#00A892',AR:'#F77FB6,#D6549A'};
+  const pool=[
+    {in:'SC',who:'Sarah Chen',what:'Title change · LinkedIn',cls:'',diff:['Associate','Head of Investment'],t:'2h'},
+    {in:'MW',who:'Marcus Webb',what:'Company acquired · TechCrunch',cls:'amber',diff:['CEO, Nexa','VP Eng, Siemens'],t:'1d'},
+    {in:'PN',who:'Priya Nair',what:'Promotion · press release',cls:'blue',diff:['Principal','Partner, Sequoia'],t:'3d'},
+    {in:'DO',who:'David Osei',what:'New board seat · filing',cls:'gray',diff:null,t:'4d'},
+    {in:'TB',who:'Tom Becker',what:'Award · CFO of the Year',cls:'amber',diff:null,t:'5d'},
+    {in:'LV',who:'Lena Vogt',what:'Founded a company · LinkedIn',cls:'',diff:['VP Product','Founder'],t:'6d'},
+    {in:'AR',who:'Anita Rao',what:'Funding round · Crunchbase',cls:'blue',diff:null,t:'1w'},
   ];
-  const feed = document.getElementById('liveFeed');
-  let idx=0;
+  const feed=document.getElementById('liveFeed'); let idx=0;
   function render(){
     feed.innerHTML='';
     for(let i=0;i<5;i++){
-      const e = pool[(idx+i)%pool.length];
-      const fresh = i===0?' fresh':'';
-      const diff = e.diff? `<div class="diff"><span class="old">${e.diff[0]}</span> → <span class="new">${e.diff[1]}</span></div>`:'';
+      const e=pool[(idx+i)%pool.length], fresh=i===0?' fresh':'';
+      const diff=e.diff?`<div class="diff"><span class="old">${e.diff[0]}</span> → <span class="new">${e.diff[1]}</span></div>`:'';
       feed.insertAdjacentHTML('beforeend',
-        `<div class="ev${fresh}"><span class="tdot ${e.t}"></span><div class="body"><div class="who">${e.who}</div><div class="what">${e.what}</div>${diff}</div><div class="time">${e.time}</div></div>`);
+        `<div class="ev${fresh}"><div class="av ${e.cls}" style="background:linear-gradient(135deg,${grad[e.in]})">${e.in}</div><div class="bd"><div class="who">${e.who}</div><div class="what">${e.what}</div>${diff}</div><div class="tm">${e.t}</div></div>`);
     }
   }
   render();
-  setInterval(()=>{ idx=(idx+1)%pool.length; render(); const k=document.getElementById('kUpd'); k.textContent=327+ (idx); }, 2600);
+  setInterval(()=>{ idx=(idx+1)%pool.length; render(); document.getElementById('kUpd').textContent=327+idx; },2800);
 </script>
 </body>
 </html>
