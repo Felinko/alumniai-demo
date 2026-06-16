@@ -196,6 +196,14 @@
   .btn.ghost{background:var(--glass);border-color:var(--line2);color:var(--text)}
   .btn.ghost:hover{background:var(--glass-h)}
 
+  /* alumni switcher */
+  .switcher{display:flex;gap:8px;margin-bottom:18px}
+  .sw-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 18px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--line2);background:var(--glass);color:var(--muted);transition:.18s}
+  .sw-btn:hover{color:var(--text);background:var(--glass-h)}
+  .sw-btn.active{background:linear-gradient(90deg,rgba(0,201,177,.18),rgba(0,201,177,.04));
+    border-color:rgba(0,201,177,.45);color:var(--teal)}
+
   .sent{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:54px 20px}
   .sent.show{display:flex;animation:fade .4s ease}
   .sent .ring{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#04231f;
@@ -258,7 +266,7 @@
         Life Signals</button>
       <button data-view="out">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
-        Donation Outreach</button>
+        Engagement Outreach</button>
     </nav>
     <div class="side-user">
       <div class="ws">IA</div>
@@ -294,7 +302,7 @@
             <svg class="spark" viewBox="0 0 62 30"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00C9B1" stop-opacity=".5"/><stop offset="1" stop-color="#00C9B1" stop-opacity="0"/></linearGradient></defs><polyline points="0,24 12,20 24,22 36,12 48,15 62,5" fill="none" stroke="#27E6CC" stroke-width="2"/><polygon points="0,24 12,20 24,22 36,12 48,15 62,5 62,30 0,30" fill="url(#g1)"/></svg></div>
           <div class="kpi"><div class="lab">High-value signals</div><div class="num">18</div><div class="trend">▲ 6 new today</div>
             <svg class="spark" viewBox="0 0 62 30"><polyline points="0,20 12,22 24,14 36,16 48,8 62,10" fill="none" stroke="#FFC857" stroke-width="2"/></svg></div>
-          <div class="kpi"><div class="lab">Giving pipeline</div><div class="num">€1.4M</div><div class="trend">▲ this quarter</div>
+          <div class="kpi"><div class="lab">Engagement pipeline</div><div class="num">€1.4M</div><div class="trend">▲ this quarter</div>
             <svg class="spark" viewBox="0 0 62 30"><polyline points="0,26 12,22 24,18 36,14 48,9 62,4" fill="none" stroke="#42D896" stroke-width="2"/></svg></div>
         </div>
         <div class="row">
@@ -304,21 +312,25 @@
           </div>
           <div class="panel">
             <div class="panel-h">Priority signals → ready to act</div>
-            <div class="sig hot" onclick="openSig()">
-              <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
-                <div style="flex:1"><div class="name">Sarah Chen</div><div class="meta">MBA ’19 · Bridgewater</div></div>
-                <span class="chip hi"><span class="d"></span>High</span></div>
-              <div class="meta">Appointed Head of Investment, Bridgewater Associates</div>
-              <div class="cap">Giving capacity ● ● ● ● ○</div>
+            <div class="sig hot" onclick="openAlum('chahine')">
+              <div class="sig-top">
+                <div class="av" style="background:linear-gradient(135deg,#5B8DEF,#00C9B1)">CH</div>
+                <div style="flex:1"><div class="name">Chahine Hamila</div><div class="meta">E. MBA '14 · Founder, Odeev</div></div>
+                <span class="chip hi"><span class="d"></span>Venture</span>
+              </div>
+              <div class="meta">Launched Odeev — AI-powered software production · Nov 2024</div>
+              <div class="cap">Entrepreneurship signal ● ● ● ● ●</div>
               <button class="pill-btn">Generate outreach →</button>
             </div>
-            <div class="sig" onclick="go('sig')">
-              <div class="sig-top"><div class="av amber" style="background:linear-gradient(135deg,#FF9A6B,#FF6B6B)">MW</div>
-                <div style="flex:1"><div class="name">Marcus Webb</div><div class="meta">EMBA ’11 · Siemens</div></div>
-                <span class="chip med"><span class="d"></span>Medium</span></div>
-              <div class="meta">Company acquired: Nexa Robotics → Siemens</div>
+            <div class="sig" onclick="openAlum('youmna')">
+              <div class="sig-top">
+                <div class="av amber" style="background:linear-gradient(135deg,#D6549A,#FF9A6B)">YN</div>
+                <div style="flex:1"><div class="name">Youmna Nahas</div><div class="meta">MBA '17 · Founder, SAMA &amp; DardaCats</div></div>
+                <span class="chip teal"><span class="d"></span>Serial founder</span>
+              </div>
+              <div class="meta">2 active ventures · student-focused platforms</div>
             </div>
-            <div class="hint">Click Sarah Chen to walk the full loop →</div>
+            <div class="hint">Click Chahine Hamila to walk the full loop →</div>
           </div>
         </div>
       </section>
@@ -330,15 +342,15 @@
           <div class="t-wrap"><table>
             <thead><tr><th>Alum</th><th>Role (live)</th><th>Source</th><th>Last update</th><th>Mode</th></tr></thead>
             <tbody>
-              <tr class="upd"><td><b>Sarah Chen</b><br><span class="nm-sub">MBA ’19</span></td>
-                <td><span class="mini-old">Associate, Bridgewater</span><br><span class="mini-new">Head of Investment, Bridgewater</span></td>
-                <td>LinkedIn</td><td>2 hours ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
-              <tr class="upd"><td><b>Marcus Webb</b><br><span class="nm-sub">EMBA ’11</span></td>
-                <td><span class="mini-old">CEO, Nexa Robotics</span><br><span class="mini-new">VP Engineering, Siemens</span></td>
-                <td>TechCrunch</td><td>Yesterday</td><td><span class="badge auto">Auto ⟳</span></td></tr>
-              <tr><td><b>Priya Nair</b><br><span class="nm-sub">MBA ’15</span></td><td>Partner, Sequoia</td><td>Press release</td><td>3 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
-              <tr><td><b>Tom Becker</b><br><span class="nm-sub">MBA ’08</span></td><td>CFO, Klarna</td><td>Filing</td><td>5 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
-              <tr><td><b>Lena Vogt</b><br><span class="nm-sub">EMBA ’17</span></td><td>Founder, stealth</td><td>LinkedIn</td><td>1 week ago</td><td><span class="badge self">Self-reported</span></td></tr>
+              <tr class="upd"><td><b>Chahine Hamila</b><br><span class="nm-sub">E. MBA '14</span></td>
+                <td><span class="mini-old">Sr. Advisor, UNDP</span><br><span class="mini-new">Founder &amp; CEO, Odeev</span></td>
+                <td>LinkedIn</td><td>3 hours ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr class="upd"><td><b>Youmna Nahas</b><br><span class="nm-sub">MBA '17</span></td>
+                <td><span class="mini-old">Marketing, LEGO Group</span><br><span class="mini-new">Founder, SAMA &amp; DardaCats</span></td>
+                <td>LinkedIn</td><td>Yesterday</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Priya Nair</b><br><span class="nm-sub">MBA '15</span></td><td>Partner, Sequoia</td><td>Press release</td><td>3 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Tom Becker</b><br><span class="nm-sub">MBA '08</span></td><td>CFO, Klarna</td><td>Filing</td><td>5 days ago</td><td><span class="badge auto">Auto ⟳</span></td></tr>
+              <tr><td><b>Lena Vogt</b><br><span class="nm-sub">EMBA '17</span></td><td>Founder, stealth</td><td>LinkedIn</td><td>1 week ago</td><td><span class="badge self">Self-reported</span></td></tr>
             </tbody>
           </table></div>
           <div class="hint">The agent diffs every record against the public web. When it changes, the database changes — instantly.</div>
@@ -350,57 +362,88 @@
         <div class="two">
           <div class="panel">
             <div class="panel-h">Alumni officer feed</div>
-            <div class="sig hot" onclick="openSig()">
-              <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
-                <div style="flex:1"><div class="name">Sarah Chen · MBA ’19</div><div class="meta">Promotion · Head of Investment, Bridgewater</div></div>
-                <span class="chip hi"><span class="d"></span>High</span></div>
-              <div class="cap">Giving capacity ● ● ● ● ○ · best moment to reach out</div>
+            <div class="sig hot" onclick="openAlum('chahine')">
+              <div class="sig-top">
+                <div class="av" style="background:linear-gradient(135deg,#5B8DEF,#00C9B1)">CH</div>
+                <div style="flex:1"><div class="name">Chahine Hamila · E. MBA '14</div><div class="meta">Went into entrepreneurship · Launched Odeev</div></div>
+                <span class="chip hi"><span class="d"></span>Venture</span>
+              </div>
+              <div class="cap">Entrepreneurship signal · best moment to reconnect</div>
             </div>
-            <div class="sig" onclick="openSig()">
-              <div class="sig-top"><div class="av blue" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div>
-                <div style="flex:1"><div class="name">Priya Nair · MBA ’15</div><div class="meta">Made Partner at Sequoia</div></div>
-                <span class="chip med"><span class="d"></span>Funding</span></div>
+            <div class="sig" onclick="openAlum('youmna')">
+              <div class="sig-top">
+                <div class="av amber" style="background:linear-gradient(135deg,#D6549A,#FF9A6B)">YN</div>
+                <div style="flex:1"><div class="name">Youmna Nahas · MBA '17</div><div class="meta">Serial founder — SAMA &amp; DardaCats active</div></div>
+                <span class="chip teal"><span class="d"></span>2 ventures</span>
+              </div>
             </div>
-            <div class="sig" onclick="openSig()">
-              <div class="sig-top"><div class="av amber" style="background:linear-gradient(135deg,#FFD98A,#FFC857)">TB</div>
-                <div style="flex:1"><div class="name">Tom Becker · MBA ’08</div><div class="meta">Named CFO of the Year</div></div>
-                <span class="chip teal"><span class="d"></span>Award</span></div>
+            <div class="sig">
+              <div class="sig-top">
+                <div class="av blue" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div>
+                <div style="flex:1"><div class="name">Priya Nair · MBA '15</div><div class="meta">Made Partner at Sequoia</div></div>
+                <span class="chip med"><span class="d"></span>Funding</span>
+              </div>
             </div>
           </div>
           <div class="panel">
             <div class="panel-h">Student network feed — drives engagement</div>
-            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div><div><b>Sarah Chen</b> (’19) is now Head of Investment at Bridgewater.<div class="act">→ Congratulate · Request mentorship</div></div></div>
-            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div><div><b>Priya Nair</b> (’15) made Partner at Sequoia.<div class="act">→ Ask about VC careers</div></div></div>
-            <div class="stud"><div class="av" style="background:linear-gradient(135deg,#FFD98A,#FFC857)">TB</div><div><b>Tom Becker</b> (’08) named CFO of the Year.<div class="act">→ Invite to guest lecture</div></div></div>
+            <div class="stud">
+              <div class="av" style="background:linear-gradient(135deg,#5B8DEF,#00C9B1)">CH</div>
+              <div><b>Chahine Hamila</b> ('14) launched Odeev — AI-powered software production.<div class="act">→ Learn about the venture · Request mentorship</div></div>
+            </div>
+            <div class="stud">
+              <div class="av amber" style="background:linear-gradient(135deg,#D6549A,#FF9A6B)">YN</div>
+              <div><b>Youmna Nahas</b> ('17) is building SAMA &amp; DardaCats as a serial founder.<div class="act">→ Hear her founder story · Ask for advice</div></div>
+            </div>
+            <div class="stud">
+              <div class="av" style="background:linear-gradient(135deg,#42D896,#1FAE78)">PN</div>
+              <div><b>Priya Nair</b> ('15) made Partner at Sequoia.<div class="act">→ Ask about VC careers</div></div>
+            </div>
             <div class="hint">Same signals, reframed for students — turning alumni wins into live engagement.</div>
           </div>
         </div>
       </section>
 
-      <!-- DONATION OUTREACH -->
+      <!-- ENGAGEMENT OUTREACH -->
       <section class="view" id="out">
         <div id="outBody">
-          <div class="moment"><span class="ic">⏱</span><div><b>Optimal moment detected:</b> senior appointments open a <b>60–90 day window</b> of peak receptivity for institutional giving.</div></div>
+          <div class="switcher">
+            <button class="sw-btn active" onclick="switchAlum('chahine',this)">Chahine Hamila</button>
+            <button class="sw-btn" onclick="switchAlum('youmna',this)">Youmna Nahas</button>
+          </div>
+          <div class="moment"><span class="ic">⚡</span><div><b>Entrepreneurship signal detected:</b> alumni who launch new ventures are highly open to reconnecting — the best moment to reach out is <b>within weeks of the signal</b>.</div></div>
           <div class="out">
             <div class="panel">
               <div class="panel-h">The opportunity</div>
-              <div class="sig hot" style="cursor:default">
-                <div class="sig-top"><div class="av" style="background:linear-gradient(135deg,#7C5CFF,#5B8DEF)">SC</div>
-                  <div style="flex:1"><div class="name">Sarah Chen · MBA ’19</div><div class="meta">Head of Investment, Bridgewater</div></div>
-                  <span class="chip hi"><span class="d"></span>High</span></div>
-                <div class="cap">Giving capacity ● ● ● ● ○</div>
+              <div class="sig hot" style="cursor:default" id="alumCard">
+                <div class="sig-top">
+                  <div class="av" style="background:linear-gradient(135deg,#5B8DEF,#00C9B1)" id="alumAv">CH</div>
+                  <div style="flex:1">
+                    <div class="name" id="alumName">Chahine Hamila · E. MBA '14</div>
+                    <div class="meta" id="alumRole">Founder &amp; CEO, Odeev</div>
+                  </div>
+                  <span class="chip hi"><span class="d"></span><span id="alumChip">Venture</span></span>
+                </div>
+                <div class="cap" id="alumCap">Entrepreneurship signal ● ● ● ● ●</div>
               </div>
-              <div class="why"><b>Why now:</b> appointed 2h ago, giving capacity is high, and the 60–90 day post-appointment window is the single best time to ask.</div>
+              <div class="why" id="alumWhy"><b>Why now:</b> Chahine just launched Odeev (Nov 2024) and is doing PhD research on high-growth entrepreneurs — he's deeply embedded in the entrepreneurship world and primed to give back to INSEAD's community.</div>
             </div>
             <div class="panel">
               <div class="panel-h">AI-drafted outreach — ready to send</div>
-              <div class="field"><span class="k">To</span><span>sarah.chen@bridgewater.com</span></div>
-              <div class="field"><span class="k">Subject</span><span>Congratulations on your new role, Sarah</span></div>
-              <div class="email">Dear Sarah,
+              <div class="field"><span class="k">To</span><span id="outTo">chahine.hamila@odeev.com</span></div>
+              <div class="field"><span class="k">Subject</span><span id="outSubject">Saw you went into entrepreneurship — let's reconnect</span></div>
+              <div class="email" id="outEmail">Dear Chahine,
 
-Congratulations on your appointment as Head of Investment at Bridgewater — a remarkable milestone. Your path from our school to one of the world’s most respected firms is an inspiration to our community.
+Saw you launched Odeev — building the next wave of AI-powered software production. Impressive move, and a bold one.
 
-We’d love to reconnect and share how alumni like you are shaping the next generation of students…</div>
+As a fellow INSEAD alum, I'd love to reconnect. Given your founder journey and your ongoing PhD research on high-growth entrepreneurship, there's a natural fit with our community right now.
+
+Would you be open to exploring opportunities together — whether as a mentor in INSEAD's New Business Ventures course, or as Entrepreneur in Residence?
+
+Happy to jump on a quick call at your convenience.
+
+Warm regards,
+INSEAD Alumni Relations</div>
               <div class="btns">
                 <button class="btn primary" onclick="sendIt()">✓ Approve &amp; Send</button>
                 <button class="btn ghost">Edit draft</button>
@@ -410,9 +453,9 @@ We’d love to reconnect and share how alumni like you are shaping the next gene
         </div>
         <div class="sent" id="sentBox">
           <div class="ring">✓</div>
-          <h2>Sent at the perfect moment.</h2>
-          <p>Personalized outreach delivered to Sarah Chen while the window is open — research and writing done by AI, approved by your officer in one click.</p>
-          <div class="logline"><span class="pulse"></span> Logged to CRM · rationale attached · follow-up scheduled</div>
+          <h2>Sent at the right moment.</h2>
+          <p>Personalized reconnect outreach delivered while the signal is fresh — research and writing done by AI, approved by your officer in one click.</p>
+          <div class="logline"><span class="pulse"></span> Logged to CRM · rationale attached · follow-up scheduled in 2 weeks</div>
           <div class="btns"><button class="btn ghost" onclick="resetOut()">↺ Run another</button></div>
         </div>
       </section>
@@ -426,8 +469,9 @@ We’d love to reconnect and share how alumni like you are shaping the next gene
     dash:["Dashboard","Live view of your alumni base"],
     db:["Continuous Database Update Agent","Step 1 — records update themselves, 24/7"],
     sig:["Life Signals","Step 2 — turn alumni moments into engagement"],
-    out:["Donation Outreach","Step 3 — reach out at the optimal moment"]
+    out:["Engagement Outreach","Step 3 — reach out at the perfect moment"]
   };
+
   function go(v){
     document.querySelectorAll('.view').forEach(s=>s.classList.remove('show'));
     document.getElementById(v).classList.add('show');
@@ -438,17 +482,81 @@ We’d love to reconnect and share how alumni like you are shaping the next gene
     closeNav();
   }
   document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.view));
-  function openSig(){ go('out'); }
+
+  const alumData = {
+    chahine:{
+      av:'CH', bg:'linear-gradient(135deg,#5B8DEF,#00C9B1)',
+      name:'Chahine Hamila · E. MBA \'14', role:'Founder &amp; CEO, Odeev',
+      chip:'Venture', cap:'Entrepreneurship signal ● ● ● ● ●',
+      why:'<b>Why now:</b> Chahine just launched Odeev (Nov 2024) and is doing PhD research on high-growth entrepreneurs — he\'s deeply embedded in the entrepreneurship world and primed to give back to INSEAD\'s community.',
+      to:'chahine.hamila@odeev.com',
+      subject:'Saw you went into entrepreneurship — let\'s reconnect',
+      email:`Dear Chahine,
+
+Saw you launched Odeev — building the next wave of AI-powered software production. Impressive move, and a bold one.
+
+As a fellow INSEAD alum, I'd love to reconnect. Given your founder journey and your ongoing PhD research on high-growth entrepreneurship, there's a natural fit with our community right now.
+
+Would you be open to exploring opportunities together — whether as a mentor in INSEAD's New Business Ventures course, or as Entrepreneur in Residence?
+
+Happy to jump on a quick call at your convenience.
+
+Warm regards,
+INSEAD Alumni Relations`
+    },
+    youmna:{
+      av:'YN', bg:'linear-gradient(135deg,#D6549A,#FF9A6B)',
+      name:'Youmna Nahas · MBA \'17', role:'Founder, SAMA &amp; DardaCats',
+      chip:'Serial founder', cap:'2 active ventures · strong engagement signal',
+      why:'<b>Why now:</b> Youmna has been building for 5+ years since INSEAD — two active ventures in platform and edtech. As a former Student Council President, she already has a strong connection to INSEAD and is well-placed to mentor the next cohort.',
+      to:'youmna.nahas@sama.co',
+      subject:'Saw you went into entrepreneurship — let\'s reconnect',
+      email:`Dear Youmna,
+
+Saw you went into entrepreneurship — not once, but twice, with SAMA and DardaCats. That's exactly the kind of bold founder story our NBV students need to hear.
+
+As a former INSEAD Student Council President, you already know how much this community gives back. We'd love to explore reconnecting more formally.
+
+Would you be open to a mentor role in INSEAD's New Business Ventures course, or even Entrepreneur in Residence? Your hands-on experience building consumer platforms is rare and hugely valuable.
+
+Would love to catch up.
+
+Warm regards,
+INSEAD Alumni Relations`
+    }
+  };
+
+  function openAlum(key){
+    go('out');
+    switchAlum(key, document.querySelector(`.sw-btn[onclick*="${key}"]`));
+  }
+
+  function switchAlum(key, btn){
+    const d = alumData[key];
+    document.querySelectorAll('.sw-btn').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    document.getElementById('alumAv').textContent = d.av;
+    document.getElementById('alumAv').style.background = d.bg;
+    document.getElementById('alumName').innerHTML = d.name;
+    document.getElementById('alumRole').innerHTML = d.role;
+    document.getElementById('alumChip').textContent = d.chip;
+    document.getElementById('alumCap').textContent = d.cap;
+    document.getElementById('alumWhy').innerHTML = d.why;
+    document.getElementById('outTo').textContent = d.to;
+    document.getElementById('outSubject').textContent = d.subject;
+    document.getElementById('outEmail').textContent = d.email;
+  }
+
   function toggleNav(){ document.body.classList.toggle('nav-open'); }
   function closeNav(){ document.body.classList.remove('nav-open'); }
   function sendIt(){ document.getElementById('outBody').style.display='none'; document.getElementById('sentBox').classList.add('show'); }
   function resetOut(){ document.getElementById('sentBox').classList.remove('show'); document.getElementById('outBody').style.display='block'; }
 
   // live agent feed
-  const grad={SC:'#7C5CFF,#5B8DEF',MW:'#FF9A6B,#FF6B6B',PN:'#42D896,#1FAE78',DO:'#5B8DEF,#3A6FD8',TB:'#FFD98A,#FFC857',LV:'#27E6CC,#00A892',AR:'#F77FB6,#D6549A'};
+  const grad={CH:'#5B8DEF,#00C9B1',YN:'#D6549A,#FF9A6B',PN:'#42D896,#1FAE78',DO:'#5B8DEF,#3A6FD8',TB:'#FFD98A,#FFC857',LV:'#27E6CC,#00A892',AR:'#F77FB6,#D6549A'};
   const pool=[
-    {in:'SC',who:'Sarah Chen',what:'Title change · LinkedIn',cls:'',diff:['Associate','Head of Investment'],t:'2h'},
-    {in:'MW',who:'Marcus Webb',what:'Company acquired · TechCrunch',cls:'amber',diff:['CEO, Nexa','VP Eng, Siemens'],t:'1d'},
+    {in:'CH',who:'Chahine Hamila',what:'New company launched · LinkedIn',cls:'',diff:['Sr. Advisor, UNDP','Founder, Odeev'],t:'3h'},
+    {in:'YN',who:'Youmna Nahas',what:'Founded DardaCats · LinkedIn',cls:'amber',diff:['Marketing, LEGO','Founder, SAMA'],t:'1d'},
     {in:'PN',who:'Priya Nair',what:'Promotion · press release',cls:'blue',diff:['Principal','Partner, Sequoia'],t:'3d'},
     {in:'DO',who:'David Osei',what:'New board seat · filing',cls:'gray',diff:null,t:'4d'},
     {in:'TB',who:'Tom Becker',what:'Award · CFO of the Year',cls:'amber',diff:null,t:'5d'},
